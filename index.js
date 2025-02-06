@@ -32,7 +32,7 @@ const requestHandler = async (request, response) => {
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
       <div class="container text-center mt-5 pt-5">
-        <h1>${message}</h1>
+        <h1 id="message">${message}</h1>
         <p>This is an application talking to a PostgreSQL <code>${serverVersion}</code> database on host <code>${host}</code>, deployed with Score!</p>
         <p><code></p>
         <p>
@@ -41,7 +41,22 @@ const requestHandler = async (request, response) => {
           ${version}
           </pre>
         </p>
+        <div class="mb-3">
+          <input type="text" id="username" class="form-control" placeholder="Enter your name">
+        </div>
+        <button id="changeMessage" class="btn btn-primary">Change Message</button>
       </div>
+      <script>
+        document.getElementById("changeMessage").addEventListener("click", function() {
+          const username = document.getElementById("username").value;
+          const messageElement = document.getElementById("message");
+          if (username) {
+            messageElement.textContent = "Hello, " + username + "!";
+          } else {
+            messageElement.textContent = "${message}";
+          }
+        });
+      </script>
     </body>
   </html>
   `;
